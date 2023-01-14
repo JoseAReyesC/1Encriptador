@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Encriptador</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <img src="imagenes/LogoAluraOneN.png" alt="Logo Encriptador" class="logoalura">
+        </header>
+        <main>
+            <textarea cols="35" rows="5" id="mensaje" class="textousuario" placeholder="Ingrese el texto aquí" autofocus></textarea>
+            
+            <div class="botones">
+                <input type="button" Value="Encriptar!" class="boton_encriptar" id="botonEncriptar">
+                <input type="button" value="Desecriptar!" class="boton_desencriptar" id="botonDesencriptar">
+            </div>
+
+            <div class="mensajepeque">
+                <label for="textopeque"><img src="imagenes/bi_exclamation-circle-fill.jpg" > Solo letras minúsculas y sin acentos</label>
+            </div>
+    
+            <div class="rectangulo">
+                <img src="imagenes/Muñeco.jpg" id="imagenBucador" alt="Logo Encriptador" class="muñeco">
+                <p id="mensajeRectangulo1">Ningún mensaje fue encontrado</p>
+                <p id="mensajeRectangulo2">Ingresa el texto que desees encriptar o desencriptar.</p>   
+                <textarea cols="70" rows="15" id="mensajeEncriptado" class="textoEncriptado" ></textarea>
+                <button id="botonCopiar" class="boton_copiar" style="visibility:hidden" >Copiar</button>
+            </div>
+
+            <div class="piedepagina">
+                <p class="Copyright"> &copy Diseñado por Jose Reyes para Alura G4</p>
+            </div>
+
+
+            <script>
+            function ocultarElementos() {
+                document.getElementById("imagenBucador").style.visibility = "hidden";
+                document.getElementById("mensajeRectangulo1").style.visibility = "hidden"
+                document.getElementById("mensajeRectangulo2").style.visibility = "hidden";
+                document.getElementById("botonCopiar").style.visibility = "visible";
+            }
+
+            function encriptar(){
+                let arregloMensaje=[]; 
+                let textoEncriptado="";
+                
+                arregloMensaje = document.getElementById("mensaje").value;
+
+                if(arregloMensaje != ""){
+
+                    ocultarElementos();
+                    for(indice=0;indice<arregloMensaje.length;indice++){
+                    if(arregloMensaje[indice]=="e"){
+                        textoEncriptado=textoEncriptado + "enter";
+                    }   
+                        else if(arregloMensaje[indice]=="i"){
+                            textoEncriptado=textoEncriptado + "imes";
+                        }
+                            else if(arregloMensaje[indice]=="a"){
+                                textoEncriptado=textoEncriptado + "ai";
+                            }
+                                else if(arregloMensaje[indice]=="o"){
+                                textoEncriptado=textoEncriptado + "ober";
+                                }
+                                    else if(arregloMensaje[indice]=="u"){
+                                    textoEncriptado=textoEncriptado + "ufat";
+                                    }
+                                    else{
+                                    textoEncriptado=textoEncriptado + arregloMensaje[indice];
+                                    }
+                    }
+                    document.getElementById("mensajeEncriptado").innerHTML=textoEncriptado;
+                }else{
+                    alert("El campo no puede estar vacio")
+                }
+            }
+
+            function desencriptar(){
+                let textoProcesado=document.getElementById("mensaje").value;
+    
+                textoProcesado = textoProcesado.replace(/ai/g, 'a');
+                textoProcesado = textoProcesado.replace(/enter/g, "e") 
+                textoProcesado = textoProcesado.replace(/imes/g, "i") 
+                textoProcesado = textoProcesado.replace(/ober/g, "o") 
+                textoProcesado = textoProcesado.replace(/ufat/g, "u") 
+
+                document.getElementById("mensajeEncriptado").innerHTML=textoProcesado;
+            }
+
+            function copiar(){
+                let copyText = document.querySelector("#mensajeEncriptado");
+                copyText.select();
+                document.execCommand("copy");
+            }
+
+            /*document.querySelector("#botonCopiar").addEventListener("click", copiar);/* otra forma de llamar al boton es el mas usado*/
+            document.getElementById("botonEncriptar").onclick=encriptar;
+            document.getElementById("botonDesencriptar").onclick=desencriptar;
+            document.getElementById("botonCopiar").onclick=copiar;
+            </script>
+        </main>
+    </body>
+</html>
